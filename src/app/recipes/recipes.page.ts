@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Recipe } from './recipe.model';
-import { title } from 'process';
+import {  IRecipeResponse, IHits } from './recipe.model';
 import { RecipesService } from './recipes.service';
+
 
 @Component({
   selector: 'app-recipes',
@@ -11,14 +11,19 @@ import { RecipesService } from './recipes.service';
 })
 export class RecipesPage implements OnInit {
 
-  recipes: Recipe[];
+  recipes: [IHits];
 
   constructor(private InjectedRecipe: RecipesService) { 
   
   }
 
-  ngOnInit() {
-    this.recipes = this.InjectedRecipe.getAllRecipes();
+  async ngOnInit() {
+    const response = await this.InjectedRecipe.getAllRecipes();
+    this.recipes = response.data.hits;
+  }
+
+  async search( event ){
+    console.log(event);
   }
 
 }

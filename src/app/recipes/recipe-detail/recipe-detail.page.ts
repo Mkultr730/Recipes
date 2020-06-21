@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
 import { RecipesService } from '../recipes.service';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Recipe } from '../recipe.model';
+import { IRecipes, IHits } from '../recipe.model';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -10,7 +10,7 @@ import { Recipe } from '../recipe.model';
 })
 export class RecipeDetailPage implements OnInit {
 
-  loadedRecipe: Recipe;
+  loadedRecipe: IHits;
 
   constructor(private InjectedRecipe: RecipesService, private activatedRoute: ActivatedRoute) { }
 

@@ -1,34 +1,34 @@
+import { IAxiosResponse, IRecipeResponse, IHits } from './recipe.model';
+import axios, { AxiosResponse } from 'axios';
 import { Injectable } from '@angular/core';
-import { Recipe } from './recipe.model';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class RecipesService {
-  private recipes: Recipe[] = [
-    {
-      id: 'r1',
-      title: 'Schnitzel',
-      imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/2017-05-28_Wiener_Schnitzel_mit_Pommes_frites_anagoria.jpg/1200px-2017-05-28_Wiener_Schnitzel_mit_Pommes_frites_anagoria.jpg',
-      ingredients: ['French Fries', 'Pork', 'Salad']
-    },
-    {
-      id: 'r2',
-      title: 'Spaghetti',
-      imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Spaghetti_di_Gragnano_e_colatura_di_alici.jpg/1200px-Spaghetti_di_Gragnano_e_colatura_di_alici.jpg',
-      ingredients: ['Spaghetti', 'Meat', 'Tomatoes']
-    }
-  ];
+
+  appID: string = 'ba03f734';
+  apiID: string = '56beedddfa35c68b732f02fbaa87a4e1';
+  search: string = '';
+
+  apiUrl: string = `https://api.edamam.com/search?q=chicken&app_id=${this.appID}&app_key=${this.apiID}`;
+  recipes: [IHits];
 
   constructor() { }
 
-  getAllRecipes() {
-    return [...this.recipes];
+  getAllRecipes = async (): Promise<IAxiosResponse> => {
+    const response = await axios.get<IRecipeResponse>(this.apiUrl);
+    this.recipes = response.data.hits;
+    return response;
   }
 
   getRecipe(recipeId: string) {
-    return {...this.recipes.find(recipe=> {
-      return recipe.id === recipeId;
-    })};
+    const response =  {
+      ...this.recipes.find(recipe => {
+        return recipe.recipe.uri.split('_').pop() === recipeId;
+      })
+    };
+    return response;
   }
 }
