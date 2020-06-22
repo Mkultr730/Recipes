@@ -12,13 +12,15 @@ export class RecipesService {
   apiID: string = '56beedddfa35c68b732f02fbaa87a4e1';
   search: string = '';
 
-  apiUrl: string = `https://api.edamam.com/search?q=chicken&app_id=${this.appID}&app_key=${this.apiID}`;
+  
   recipes: [IHits];
 
   constructor() { }
 
-  getAllRecipes = async (): Promise<IAxiosResponse> => {
-    const response = await axios.get<IRecipeResponse>(this.apiUrl);
+  getAllRecipes = async (input): Promise<IAxiosResponse> => {
+    this.search = input;
+    const apiUrl = `https://api.edamam.com/search?q=${this.search}&app_id=${this.appID}&app_key=${this.apiID}`;
+    const response = await axios.get<IRecipeResponse>(apiUrl);
     this.recipes = response.data.hits;
     return response;
   }

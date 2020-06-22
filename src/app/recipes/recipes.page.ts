@@ -18,12 +18,15 @@ export class RecipesPage implements OnInit {
   }
 
   async ngOnInit() {
-    const response = await this.InjectedRecipe.getAllRecipes();
+    const response = await this.InjectedRecipe.getAllRecipes('chiken');
     this.recipes = response.data.hits;
   }
 
   async search( event ){
-    console.log(event);
+    const input = event.detail.value; 
+    const response = await this.InjectedRecipe.getAllRecipes(input);
+    this.recipes = response.data.hits;
+    console.log(event.detail.value);
   }
 
 }
