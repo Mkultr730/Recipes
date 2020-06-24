@@ -1,0 +1,18 @@
+.content {
+    position: relative;
+
+    .img {
+        margin-top: 15%;
+        height: 15rem;
+        width: auto;
+    }
+
+    .img-no {
+        display: none;
+    }
+}
+
+.search-bar {
+   position: absolute;
+   top: 50%;
+}
