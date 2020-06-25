@@ -1,6 +1,7 @@
 import { IAxiosResponse, IRecipeResponse, IHits } from './recipe.model';
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment'; 
 
 
 @Injectable({
@@ -8,8 +9,8 @@ import { Injectable } from '@angular/core';
 })
 export class RecipesService {
 
-  appID: string = 'ba03f734';
-  apiID: string = '56beedddfa35c68b732f02fbaa87a4e1';
+  // appID: string = 'ba03f734';
+  // apiID: string = '56beedddfa35c68b732f02fbaa87a4e1';
   search: string = '';
 
   
@@ -19,7 +20,7 @@ export class RecipesService {
 
   getAllRecipes = async (input): Promise<IAxiosResponse> => {
     this.search = input;
-    const apiUrl = `https://api.edamam.com/search?q=${this.search}&app_id=${this.appID}&app_key=${this.apiID}`;
+    const apiUrl = `https://api.edamam.com/search?q=${this.search}&app_id=${environment.appId}&app_key=${environment.apiId}`;
     const response = await axios.get<IRecipeResponse>(apiUrl);
     this.recipes = response.data.hits;
     return response;
