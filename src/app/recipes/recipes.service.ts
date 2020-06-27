@@ -9,11 +9,8 @@ import { environment } from 'src/environments/environment';
 })
 export class RecipesService {
 
-  // appID: string = 'ba03f734';
-  // apiID: string = '56beedddfa35c68b732f02fbaa87a4e1';
   search: string = '';
 
-  
   recipes: [IHits];
 
   constructor() { }
